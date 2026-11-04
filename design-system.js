@@ -123,6 +123,13 @@
       const preview=document.querySelector('#ds-owner-preview'),heading=document.createElement('h3'),description=document.createElement('p');heading.textContent=id?RG_VOLUME_ASSOCIATES[Number(id)-1]:'Aperçu d’ensemble';description.textContent=id?'Compte n° '+id+' · 50 titres · 5 % du capital · Démonstration':'20 associés de démonstration · 1 000 titres · 50 titres et 5 % chacun.';preview.replaceChildren(heading,description);
     });
   }
+  const paginationItems=document.querySelector('#ds-pagination-items');
+  if(paginationItems){
+    let page=1,size=6;const controls=document.querySelector('#ds-pagination-controls');
+    function draw(){paginationItems.replaceChildren();for(let n=(page-1)*size+1;n<=Math.min(page*size,60);n++){const item=document.createElement('div');item.className='rg-card';item.textContent='Société fictive '+String(n).padStart(2,'0');paginationItems.append(item);}controls.innerHTML=RGCollections.render({id:'ds-companies',total:60,page,pageSize:size,sizes:[6,12,24],label:'sociétés',controls:'ds-pagination-items'});}
+    controls.addEventListener('click',event=>{const button=event.target.closest('[data-collection-page]');if(button){page=Number(button.dataset.collectionPage);draw();controls.querySelector('[aria-current="page"]')?.focus({preventScroll:true});}});
+    controls.addEventListener('change',event=>{if(event.target.dataset.collectionSize){size=Number(event.target.value);page=1;draw();controls.querySelector('select')?.focus({preventScroll:true});}});draw();
+  }
   const indexLinks = [...document.querySelectorAll('.rg-index a')];
   function setCurrent(id) { indexLinks.forEach(link => { if (link.hash === '#' + id) link.setAttribute('aria-current', 'location'); else link.removeAttribute('aria-current'); }); }
   const sections = [...document.querySelectorAll('.rg-section')];

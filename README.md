@@ -163,8 +163,98 @@ Vérification : fond blanc sous thème sombre forcé à la racine, huit entrées
 
 Cette migration s’exécute une seule fois par navigateur (`rg-demo-volume-v1`). Le précédent actionnariat de THIRTY est conservé dans `rg-demo-before-volume-v1`. Les modifications effectuées après la migration ne sont pas réinitialisées au rechargement. Les historiques des registres fournis sont préservés ; les nouveaux comptes n’ont pas d’opérations inventées.
 
-`subnav.css` et `subnav.js` constituent le composant partagé avec `design-system.html#sous-navigation` : vue d’ensemble toujours disponible, liens défilants, flèches désactivées aux extrémités, sélecteur d’accès direct, sélection visible après navigation/redimensionnement et navigation clavier (gauche/droite/Début/Fin). Il conserve des liens avec `aria-current`, plutôt que de simuler des onglets de panneaux. La répartition du capital dispose d’un défilement interne pour éviter une carte démesurée.
+`subnav.css` et `subnav.js` constituent le composant partagé avec `design-system.html#sous-navigation` : vue d’ensemble toujours disponible, trois fiches maximum et bouton « Tous les associés » ouvrant une liste recherchable de huit résultats par page. La sélection active reste visible après navigation/redimensionnement ; les accès directs conservent la navigation clavier (gauche/droite/Début/Fin). Il conserve des liens avec `aria-current`, plutôt que de simuler des onglets de panneaux. La répartition du capital dispose d’un défilement interne pour éviter une carte démesurée.
 
 La barre supérieure de l’application est retirée. Les sociétés utilisent leur nom comme titre au lieu de « Ma société » ; la description générique et le bouton supérieur « Nouvelle procédure » ne sont plus affichés. L’ajout d’associé et l’ajout de société restent disponibles. Les formalités restent accessibles par leur menu. Le bouton mobile ouvre/ferme la navigation latérale avec un état `aria-expanded` synchronisé.
 
 Validation : migration d’un espace existant et conservation d’une société étrangère au jeu, absence de doublons au rechargement, onze cartes, vingt comptes égaux et total de 1 000 titres, filtres, sélection directe et liens profonds, focus clavier, fiche active visible après redimensionnement, catalogue partagé et absence de débordement de 320 à 1 440 px.
+
+
+## Collections paginées et accès compact aux associés
+
+`collections.js` / `collections.css` fournissent la pagination partagée avec le catalogue. Le dashboard affiche 6 sociétés par page (choix 6/12/24), et le tableau des associés 10 lignes (choix 10/20/50). Les recherches et tris s’appliquent à l’ensemble des données avant découpage et reviennent à la première page. Les bornes et le total filtré sont annoncés ; le nombre de boutons de pages reste limité. Les exports complets des associés ne sont pas limités à la page visible. Après ajout d’une société, le filtre est effacé et la nouvelle fiche apparaît en tête via le tri « Dernière ajoutée ».
+
+La sous-navigation est limitée à l’aperçu et trois fiches (fiche active / derniers accès / premiers raccourcis), même pour 1 000 associés. « Tous les associés » ouvre une modale blanche avec recherche par nom ou compte, huit résultats par page, état vide, fermeture par Échap et retour du focus. Le composant conserve des liens de navigation réels et est documenté dans `design-system.html#sous-navigation`. La pagination dispose également d’une démonstration dans `#pagination`. Les dernières fiches sont conservées en mémoire par société, sans nouvelle donnée personnelle persistée.
+
+Les données restent locales : la pagination découpe les collections du prototype, sans requête de pagination serveur. Le chargement conserve jusqu’à 1 000 sociétés et 1 000 associés par société. Le scénario de vérification a utilisé 211 sociétés et 1 000 associés tout en ne rendant que la page courante et trois raccourcis de navigation.
+
+## Caractéristiques des projets d’opérations
+
+`operations.js` / `operations.css` adaptent l’éditeur de projets du registre de titres aux éléments fournis :
+
+- Toutes les opérations : nom facultatif (le type sert de libellé si le nom est vide), date, observation et documents liés. Les PDF existants restent téléchargeables et peuvent être retirés du projet. Maximum 10 PDF de 10 Mo par projet, extension et en-tête PDF vérifiés, conservation dans l’IndexedDB déjà utilisé par les registres.
+- Augmentation : émission de titres ordinaires et catégories d’actions de préférence (nom, quantité, droit de vote et coefficient éventuel, dividende prioritaire), ou modification de valeur nominale avec rappel de la valeur actuelle. L’aperçu additionne ordinaires et préférences ; une émission entièrement préférentielle est possible avec 0 titre ordinaire.
+- Réduction : diminution du nombre de titres, ou nouvelle valeur nominale inférieure à la valeur courante. L’expression « réduction par émission » de l’extrait est présentée comme une réduction du nombre, pour ne pas suggérer une émission supplémentaire.
+- Division / regroupement : facteur, nouvelle valeur nominale et nouveau nombre de titres calculés. Les résultats non entiers du regroupement sont refusés ; les rompus éventuels au niveau des comptes sont signalés.
+- Conversion : titulaire, catégorie source actuellement renseignée, catégorie de destination, nom éventuel de destination et quantité à convertir, bornée à la détention actuelle.
+
+Les paramètres et références de PDF sont conservés avec chaque brouillon dans `registers.titles.drafts` et sont repris après rechargement. Les projets préexistants conservent leur quantité et leurs informations. Les valeurs nominales calculées sont affichées jusqu’à six décimales, à titre indicatif. Enregistrer un projet ne modifie ni l’actionnariat, ni le capital ni l’historique des mouvements, et ne crée aucune opération juridique réelle.
+
+Validation : pages limites, recherche depuis une autre page, total filtré, export complet, accès à un associé éloigné, Échap/focus, stress 211/1 000, nominal/émission/préférences/conversion, PDF restitué à l’identique, reprise des paramètres, refus d’un PDF vide, absence de modification de l’actionnariat et rendu jusqu’à 320 px.
+
+
+## Administration et gestion des droits
+
+`administration.html` ouvre la nouvelle rubrique, également accessible après « Documents sociaux » sur toutes les pages société. La sous-navigation ouvre « Gestion des droits » et conserve les anciennes « Préférences ». Le contenu est réparti en Personnes, Rôles et Invitations en cours pour garder les listes lisibles et paginées.
+
+`administration.js` / `administration.css` gèrent ce modèle local :
+
+- **Qualités** : dirigeant, mandataire, associé, auditeur et indivisaire. Plusieurs qualités peuvent appartenir à la même personne. Les associés sont rapprochés de leurs comptes sans recevoir automatiquement un rôle ; leur qualité d’associé est synchronisée depuis l’actionnariat.
+- **Rôles nommés** : création, description, grille de permissions, duplication et modification. Les niveaux exclusifs sont Aucun accès, Lecture seule et Lecture et écriture ; l’écriture inclut la lecture. Les commandes globales préremplissent toute la grille avant les ajustements par fonctionnalité.
+- **Fonctionnalités** : société, associés, titres, chaque registre de décisions existant ou personnalisé, personnel et annexes, documents sociaux, dépôt, annonces, suivi des formalités, certifications, personnes/droits, carnet d’adresses, facturation et préférences.
+- **Attribution** : un rôle réutilisable par personne, modifiable individuellement ou attribuable à plusieurs personnes avec sélection conservée entre pages et recherches. Les qualités restent indépendantes du rôle. Modifier un rôle met à jour toutes ses références locales.
+- **Suppression d’un rôle** : choix explicite d’un rôle de remplacement ou d’aucun accès pour les personnes et invitations concernées. Le rôle et le compte « Propriétaire de l’espace » sont protégés dans le modèle d’interface.
+- **Invitations** : préparation d’un brouillon texte, rôle prévu, qualités, contrôle des adresses déjà présentes, reprise et annulation locale. Les invitations annulées restent consultables via le filtre d’état. Aucun bouton ne transmet de message.
+
+Le modèle `access` est normalisé et mémorisé dans l’entrée de chaque société de `rg-demo-companies`. Les fonctionnalités d’un nouveau registre de décisions sont sans accès par défaut dans les rôles personnalisés ; le propriétaire conserve tous les niveaux d’écriture. Les permissions du carnet d’adresses préparent le périmètre issu de l’extrait, sans créer un nouveau service de carnet d’adresses.
+
+THIRTY fournit un exemple avec les vingt comptes d’associés, des qualités supplémentaires fictives, un mandataire, un auditeur, un indivisaire et deux invitations d’exemple. Les autres sociétés commencent avec le profil propriétaire, sans ces personnes et invitations fictives. Les autres données saisies dans l’application sont conservées.
+
+Cette interface prépare une politique d’accès ; **elle n’authentifie pas les personnes et n’applique pas d’autorisations à des comptes réels**. Une application réelle devra vérifier l’appartenance et les permissions côté serveur à chaque opération. Les dates/statuts des invitations d’exemple ne prouvent aucun envoi ; les nouvelles invitations restent des brouillons. Les validations protègent le modèle local, pas une infrastructure d’authentification.
+
+Validation : cinq qualités, création et grille trois niveaux, attribution multiple conservée à travers les recherches, modification partagée, nouveau registre sans accès, brouillons/duplicats/annulation, suppression avec remplacement, propriétaire protégé, rechargement, isolation entre sociétés, anciennes préférences et affichage de 320 à 1 440 px.
+
+
+## Parcours des opérations : saisie, vérification, fiche
+
+`operation-flow.js` complète l’éditeur de `operations.js`. Toutes les familles passent par la même étape de vérification, avec retour à la saisie sans perte des champs ni des PDF sélectionnés, puis confirmation et fiche dédiée. Les routes `#operation/<identifiant>` sont durables dans le navigateur ; `operation.html?societe=<identifiant>#operation/<identifiant>` fournit une entrée HTML directe. Le registre liste désormais « Opérations et projets » et distingue les projets confirmés des brouillons d’origine.
+
+La cession comporte titulaire et bénéficiaire existants, création préparatoire d’une personne physique ou morale, type/nom des titres renseignés pour la société, quantité, date, prix total et prix par titre. Le dernier prix saisi pilote le calcul. Les calculs monétaires utilisent des entiers (centimes et millionièmes d’euro) : total arrondi au centime, unité affichée jusqu’à six décimales. Une cession vers soi-même ou dépassant la détention connue est refusée. La détention d’un nouveau titulaire reste à vérifier et n’est pas inventée.
+
+Les nouvelles personnes sont préparées en mémoire, visibles dans les sélecteurs, puis ajoutées comme comptes à zéro titre uniquement à la confirmation. Annuler n’ajoute aucun compte. Un SIREN de personne morale facultatif est conservé avec la fiche ; aucune vérification INPI n’est faite. La confirmation enregistre un projet confirmé de démonstration, sans transfert de titres ni changement du capital.
+
+La fiche conserve une photographie de la société, des personnes et des effets prévus, les caractéristiques propres au type d’opération, les observations, les documents et le numéro de version. Elle est rechargeable, exportable en HTML autonome et modifiable via un nouveau passage au récapitulatif. Une édition annulée laisse la dernière version confirmée intacte. Les confirmations échouées sur le stockage local restent sur le récapitulatif et sont réessayables sans doublon. Les traitements de documents sont liés à leur session pour qu’une annulation ne remplace pas une nouvelle saisie.
+
+### Documents automatiques de cession
+
+Le bouton « Préparer l’ordre de mouvement et le CERFA » ajoute deux HTML imprimables aux pièces liées :
+
+- `ordre-mouvement-brouillon.html` : projet non signé d’ordre de mouvement avec société, parties, titres, prix et emplacements de signature.
+- `preparation-cerfa-2759-non-officielle.html` : **fiche de préparation**, pas une reproduction ou un préremplissage du formulaire officiel 2759-SD. Elle récapitule les données disponibles, laisse visibles les informations manquantes et donne le lien vers impots.gouv.fr. Aucun droit fiscal ni régime d’exonération n’est calculé.
+
+L’accès au site fiscal a été refusé par le proxy de l’environnement (HTTP 403) pendant la réalisation ; aucun modèle officiel vérifié n’a été intégré. Le raccordement au formulaire officiel reste à faire avant de parler de CERFA généré. Les documents sont régénérés avec les dernières valeurs lors de la vérification, conservés dans IndexedDB et téléchargeables après rechargement. Les pièces PDF importées restent restituées à l’identique. Les HTML exportés peuvent être imprimés en PDF via le navigateur.
+
+Validation : prix total/unitaire et arrondis, génération/régénération, téléchargement, retour de récapitulatif, annulation pendant un traitement, création physique/morale différée, persistance du SIREN, échec de sauvegarde réessayable, toutes les familles d’opérations, lien direct et rendu de 320 à 1 440 px. Les titres et mouvements source restent inchangés.
+
+## Renseignement du capital en six étapes
+
+Le CTA « Renseigner le capital » de la carte Capital & actionnariat ouvre `capital-setup.js` / `capital-setup.css`. Le même parcours remplace l’ancien petit formulaire de modification du capital.
+
+1. Déclaration d’un registre antérieur et import d’une copie PDF si oui (10 Mo maximum, en-tête vérifié, fichier conservé dans IndexedDB). Une copie déjà importée peut être consultée ou remplacée. Aucun contenu n’est extrait automatiquement.
+2. Date de création, capital social, valeur nominale commune et nombre d’actions de préférence. Les montants sont saisis au centime dans ce parcours ; le capital doit être égal au total des titres multiplié par la valeur nominale.
+3. Total des titres et catégories d’actions de préférence : nom distinct, quantité, droit de vote oui/non avec coefficient, dividende prioritaire oui/non. Les catégories de préférence doivent couvrir le nombre déclaré à l’étape précédente.
+4. Personnes physiques, personnes morales et indivisions ; identité, nom d’usage, dénomination/nom de l’indivision, titres répartis par catégorie, nombre de bons, puis informations facultatives (adresse, e-mail, état civil, naissance, numéro de compte unique ou automatique). La liste est limitée à huit lignes par page. Les bons restent hors capital. Toutes les catégories doivent être entièrement attribuées avant de terminer.
+5. Observation facultative, jusqu’à 2 000 caractères.
+6. Récapitulatif avec les droits de chaque catégorie et les informations de chaque compte, accessibles dans des volets. La validation globale est répétée à l’enregistrement, y compris après un retour direct entre étapes.
+
+La situation est préparée en mémoire ; seuls les binaires PDF temporaires peuvent être stockés avant confirmation. Annuler n’enregistre aucune modification de société. La confirmation sauvegarde ensemble capital, catégories, comptes, observation et référence du registre antérieur. Un échec du stockage conserve le récapitulatif pour réessayer sans doublon. Les comptes existants et les historiques restent conservés ; le parcours ne crée aucun mouvement, acte ou certification. Une copie déclarée absente est dissociée du registre courant à la confirmation, sans supprimer son binaire historique.
+
+Le modèle `ownership.categories` conserve les catégories ; chaque compte porte `holdings` et `warrants`, et `ownership.setup` l’observation et la date de mise à jour. Les anciens modèles à une seule catégorie restent pris en charge. Les vues associés/titres et les cessions/conversions lisent les catégories déclarées ; une cession est bornée à la détention connue dans la catégorie choisie. La carte de synthèse affiche cinq participations maximum puis un lien vers le détail complet. Pour un capital comportant des catégories, modifier ou ajouter un associé reprend le même parcours afin de conserver la cohérence des répartitions.
+
+## Navigation entre site et références
+
+`design-switcher.js` / `design-switcher.css` ajoutent « Explorer » en bas à droite des 17 entrées HTML. Le menu contient Le site, Design system et Charte graphique, indique l’espace courant et se ferme avec Échap ou au clic extérieur. Le retour au site retrouve sa dernière page dans l’onglet, société et sous-page comprises. Il est masqué à l’impression.
+
+Les boutons de téléchargement des guides, du kit et des ressources ont été retirés du design system et de la charte, ainsi que la commande d’impression de la charte. Les sources restent dans le dépôt ; le menu de revue sert à consulter les pages. La navigation latérale d’une société conserve uniquement Ma société sous le sélecteur : formalités et documents restent dans la navigation de contenu.
+
+Validation complémentaire : parcours complet avec trois natures d’associé, préférence avec vote et dividende prioritaire, bons hors capital, conservation des données au rechargement, PDF invalide refusé et copie valide restituable, 20 associés paginés, échec de sauvegarde réessayable, validation globale après saut entre étapes, annulation, historique intact, cession par catégorie, 17 pages sans erreur JavaScript, menu clavier et rendu mobile.

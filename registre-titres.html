@@ -9,14 +9,16 @@
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="account-paper.css" data-ledger-style>
   <link rel="stylesheet" href="registers.css">
-  <script src="registers.js" defer></script>
+  <script src="registers.js" defer></script><script src="operations.js" defer></script><script src="operation-flow.js" defer></script>
   <script src="demo-fixtures.js" defer></script>
-  <script src="subnav.js" defer></script>
-  <script src="app.js" defer></script>
+  <script src="collections.js" defer></script><script src="subnav.js" defer></script>
+  <script src="administration.js" defer></script>
+  <script src="capital-setup.js" defer></script><script src="app.js" defer></script>
 <link rel="stylesheet" href="design-tokens.css">
 <link rel="stylesheet" href="modals.css">
-<link rel="stylesheet" href="subnav.css">
-</head>
+<link rel="stylesheet" href="subnav.css"><link rel="stylesheet" href="collections.css"><link rel="stylesheet" href="operations.css"><link rel="stylesheet" href="administration.css">
+<link rel="stylesheet" href="capital-setup.css">
+<link rel="stylesheet" href="design-switcher.css"><script src="design-switcher.js" defer></script></head>
 <body data-default-view="titres">
   <svg class="svg-definitions" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs>
     <symbol id="i-grid" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></symbol>
@@ -56,8 +58,6 @@
     <button class="workspace-switch" data-action="companies"><span class="workspace-avatar">T<span></span></span><span class="workspace-name"><strong>THIRTY</strong><span>Espace société</span></span><svg class="icon"><use href="#i-chevron"/></svg></button>
     <nav class="main-nav company-nav" aria-label="Espace de la société">
       <a href="#societe" class="nav-item" data-nav="societe"><svg class="icon"><use href="#i-building"/></svg>Ma société<span class="nav-active-dot"></span></a>
-      <a href="#procedures" class="nav-item" data-nav="procedures"><svg class="icon"><use href="#i-clock"/></svg>Mes procédures</a>
-      <a href="#documents" class="nav-item" data-nav="documents"><svg class="icon"><use href="#i-folder"/></svg>Mes documents</a>
     </nav>
     <div class="sidebar-bottom">
       <div class="help-card"><span class="help-illustration"><svg class="icon"><use href="#i-spark"/></svg></span><strong>Le juridique, plus simple.</strong><p>Une question ? Notre équipe<br>est là pour vous accompagner.</p><button data-action="help">Parlons-en <svg class="icon"><use href="#i-arrow"/></svg></button></div>
@@ -78,7 +78,7 @@
 <div class="company-tab-dropdown"><button class="tab company-dropdown-trigger" id="registers-trigger" data-company-dropdown="registers" aria-expanded="false" aria-controls="company-registers-menu">Registres<svg class="icon"><use href="#i-chevron"/></svg></button><div class="company-dropdown-panel" id="company-registers-menu" aria-labelledby="registers-trigger" hidden><span class="company-menu-label">LES REGISTRES DE LA SOCIÉTÉ</span><a href="#titres" data-tab="titres" class="company-menu-item"><svg class="icon"><use href="#i-file"/></svg><span>Registre des titres<small>Mouvements et comptes de titres</small></span></a><a href="#decisions" data-tab="decisions" class="company-menu-item"><svg class="icon"><use href="#i-folder"/></svg><span>Registre des décisions<small>Décisions et assemblées</small></span></a><a href="#personnel" data-tab="personnel" class="company-menu-item"><svg class="icon"><use href="#i-users"/></svg><span>Registre du personnel<small>Les informations de vos salariés</small></span></a></div></div>
 <div class="company-tab-dropdown"><button class="tab company-dropdown-trigger" id="formalities-trigger" data-company-dropdown="formalities" aria-expanded="false" aria-controls="company-formalities-menu">Mes formalités<svg class="icon"><use href="#i-chevron"/></svg></button><div class="company-dropdown-panel company-formalities-panel" id="company-formalities-menu" aria-labelledby="formalities-trigger" hidden><span class="company-menu-label">LES DÉMARCHES DE LA SOCIÉTÉ</span><button class="company-menu-item" data-action="accounts"><svg class="icon"><use href="#i-download"/></svg><span>Dépôt des comptes annuels<small>Préparer le dossier de votre exercice</small></span></button><button class="company-menu-item" data-action="announcement"><svg class="icon"><use href="#i-file"/></svg><span>Annonces légales<small>Préparer votre prochaine publication</small></span></button><a href="#procedures" class="company-menu-footer" data-tab="procedures">Suivre mes formalités<svg class="icon"><use href="#i-arrow"/></svg></a></div></div>
 <a class="tab" href="#documents" data-tab="documents">Documents sociaux</a>
-<a class="tab tab-settings" href="#administration" data-tab="administration" aria-label="Administration"><svg class="icon"><use href="#i-settings"/></svg></a>
+<a class="tab tab-administration" href="#administration" data-tab="administration">Administration</a>
 </nav>
       <section id="view" aria-label="Contenu de la société"></section>
       <footer class="page-footer"><span><svg class="icon"><use href="#i-shield"/></svg>Vos données sont hébergées en France et sécurisées.</span><span>Maquette interactive · Données de démonstration</span></footer>

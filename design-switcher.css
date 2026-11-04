@@ -1,0 +1,16 @@
+/* Navigation de revue commune au site, à la charte et au catalogue. */
+.rg-review-switcher{position:fixed;right:20px;bottom:max(20px,env(safe-area-inset-bottom));z-index:90;color-scheme:light;font:14px/1.5 Inter,"Segoe UI",Arial,sans-serif;color:#243c34;box-sizing:border-box}
+.rg-review-switcher *{box-sizing:border-box}
+.rg-review-switcher summary{display:flex;align-items:center;justify-content:center;gap:9px;min-height:44px;padding:11px 16px;background:#fff;color:#153f35;border:1px solid #bdcdb8;border-radius:30px;box-shadow:0 4px 20px #153f3518;cursor:pointer;list-style:none;font-size:13px;font-weight:500}
+.rg-review-switcher summary::-webkit-details-marker{display:none}.rg-review-switcher summary::marker{content:''}
+.rg-review-switcher summary svg{width:18px;height:18px}
+.rg-review-switcher[open] summary{background:#153f35;color:#fff;border-color:#153f35}
+.rg-review-switcher nav{position:absolute;right:0;bottom:56px;display:grid;width:276px;max-width:calc(100vw - 32px);padding:10px;background:white;border:1px solid #d7e1d0;border-radius:16px;box-shadow:0 14px 45px #153f3526}
+.rg-review-switcher .rg-review-label{font-size:9px;letter-spacing:2px;color:#58695f;padding:12px}
+.rg-review-switcher nav a{display:block;padding:12px;border-radius:8px;text-decoration:none;color:#243c34;font-size:14px;font-weight:500;min-height:64px}
+.rg-review-switcher nav a span{display:block;font-size:11px;color:#58695f;font-weight:400;margin-top:4px}
+.rg-review-switcher nav a:hover{background:#f1f5e9}.rg-review-switcher nav a[aria-current]{background:#e8f2db}
+.rg-review-switcher :is(a,summary):focus-visible{outline:3px solid #22755a;outline-offset:3px}
+body:has(.rg-review-switcher){padding-bottom:76px}
+@media(max-width:540px){.rg-review-switcher{right:16px;bottom:max(16px,env(safe-area-inset-bottom))}.rg-review-switcher summary{padding:11px 13px}.rg-review-switcher nav{width:260px}}
+@media print{.rg-review-switcher{display:none!important}body:has(.rg-review-switcher){padding-bottom:0}}

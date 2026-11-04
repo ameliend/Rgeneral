@@ -1,0 +1,13 @@
+.rg-pagination{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:20px 0;font:13px/1.6 var(--rg-font-sans,Inter,"Segoe UI",Arial,sans-serif);color:var(--rg-color-muted,#58695f)}
+.rg-pagination-status{font-variant-numeric:tabular-nums}
+.rg-pagination-size{display:flex;align-items:center;gap:8px;margin-left:auto}
+.rg-pagination-size select{min-height:40px;padding:7px 9px;border:1px solid var(--rg-color-control-border,#78877a);border-radius:7px;background:white;color:var(--rg-color-ink,#243c34);font:inherit}
+.rg-pagination-pages{display:flex;align-items:center;gap:4px}
+.rg-pagination-pages button{display:grid;place-items:center;min-width:36px;min-height:40px;padding:6px;border:1px solid var(--rg-color-line,#e0e6dc);border-radius:7px;background:white;color:var(--rg-color-ink,#243c34);font:inherit;cursor:pointer}
+.rg-pagination-pages button[aria-current=page]{background:var(--rg-color-forest,#153f35);border-color:var(--rg-color-forest,#153f35);color:white}
+.rg-pagination-pages button:disabled{color:#899488;background:#eff2eb;cursor:default}
+.rg-pagination-pages button:hover:not(:disabled):not([aria-current=page]){background:#edf2e6}
+.rg-pagination :is(button,select):focus-visible{outline:3px solid var(--rg-color-focus,#22755a);outline-offset:2px}
+.rg-pagination-gap{padding:0 3px}
+.associates-pagination-wrap{padding:0 24px;border-top:1px solid var(--rg-color-line,#e0e6dc)}
+@media(max-width:540px){.rg-pagination{font-size:12px;gap:10px}.rg-pagination-pages{flex-basis:100%;justify-content:center;gap:3px}.rg-pagination-pages button{min-width:32px}.rg-pagination-size{margin-left:auto}.associates-pagination-wrap{padding-inline:18px}}
