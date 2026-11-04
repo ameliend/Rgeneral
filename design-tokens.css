@@ -1,0 +1,59 @@
+/* Registre Général · v1.0.0 · généré depuis design-tokens.json. */
+:root {
+  --rg-color-forest: #153F35;
+  --rg-color-forest-deep: #11382F;
+  --rg-color-green: #22755A;
+  --rg-color-mint: #DCEDB8;
+  --rg-color-sage: #88A47B;
+  --rg-color-canvas: #F6F7F3;
+  --rg-color-paper: #F8F9F5;
+  --rg-color-surface: #FFFFFF;
+  --rg-color-ink: #243C34;
+  --rg-color-muted: #58695F;
+  --rg-color-line: #E0E6DC;
+  --rg-color-control-border: #78877A;
+  --rg-color-success: #206044;
+  --rg-color-success-bg: #EAF4EC;
+  --rg-color-warning: #785315;
+  --rg-color-warning-bg: #FFF4D9;
+  --rg-color-danger: #A73438;
+  --rg-color-danger-bg: #FCEEF0;
+  --rg-color-info: #305F80;
+  --rg-color-info-bg: #ECF3F9;
+  --rg-color-focus: #22755A;
+  --rg-space-0: 0px;
+  --rg-space-4: 4px;
+  --rg-space-8: 8px;
+  --rg-space-12: 12px;
+  --rg-space-16: 16px;
+  --rg-space-24: 24px;
+  --rg-space-32: 32px;
+  --rg-space-48: 48px;
+  --rg-space-64: 64px;
+  --rg-space-96: 96px;
+  --rg-radius-sm: 6px;
+  --rg-radius-control: 8px;
+  --rg-radius-card: 14px;
+  --rg-radius-large: 24px;
+  --rg-type-caption: 12px;
+  --rg-type-small: 14px;
+  --rg-type-body: 16px;
+  --rg-type-subheading: 20px;
+  --rg-type-section: 28px;
+  --rg-type-page: 36px;
+  --rg-type-display: 64px;
+  --rg-size-control: 44px;
+  --rg-size-sidebar: 252px;
+  --rg-size-content: 1200px;
+  --rg-duration-fast: 160ms;
+  --rg-duration-normal: 220ms;
+  --rg-breakpoint-mobile: 640px;
+  --rg-breakpoint-tablet: 1024px;
+  --rg-font-sans: Inter, "Segoe UI", Arial, sans-serif;
+  --rg-font-document: Georgia, "Times New Roman", serif;
+  --rg-shadow-card: 0 8px 32px #153f3508;
+  --rg-shadow-dialog: 0 24px 80px #11382f29;
+}
+@media (prefers-reduced-motion: reduce) {
+  :root { --rg-duration-fast: 0ms; --rg-duration-normal: 0ms; }
+}

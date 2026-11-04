@@ -1,0 +1,112 @@
+/* Modales de l’application · adaptation ciblée du design system v1.0.
+   Charger après les styles de la page. Aucune règle ne s’applique hors des dialogues. */
+:is(#modal,#dialog,#privacy){
+  color-scheme:light;
+  background:var(--rg-color-surface,#fff);
+  color:var(--rg-color-ink,#243c34);
+  border:1px solid var(--rg-color-line,#e0e6dc);
+  border-radius:18px;
+  box-shadow:var(--rg-shadow-dialog,0 24px 80px #11382f29);
+  width:520px;
+  max-width:calc(100vw - 32px);
+  max-height:calc(100vh - 48px);
+  max-height:calc(100dvh - 48px);
+  padding:0;
+  overflow:auto;
+  overscroll-behavior:contain;
+  scrollbar-width:thin;
+  font:16px/1.65 var(--rg-font-sans,Inter,"Segoe UI",Arial,sans-serif);
+}
+:is(#modal,#dialog,#privacy)::backdrop{background:#11382f66;backdrop-filter:blur(3px)}
+:is(#modal,#dialog) :is(.modal-header,.dialog-head){
+  position:sticky;top:0;z-index:2;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:24px 28px;gap:16px;margin:0;
+  background:var(--rg-color-surface,#fff);
+  border-bottom:1px solid var(--rg-color-line,#e0e6dc);
+}
+#modal-title{min-width:0}
+:is(#modal,#dialog,#privacy) h2{font-size:24px;line-height:1.2;letter-spacing:-.04em;font-weight:500;margin:0;overflow-wrap:anywhere;color:var(--rg-color-ink,#243c34)}
+#modal .modal-header .eyebrow{font-size:10px;line-height:1.6;letter-spacing:.16em;color:var(--rg-color-muted,#58695f);margin-bottom:8px}
+:is(#modal,#dialog) :is(#modal-body,.dialog-body){padding:24px 28px;color:var(--rg-color-ink,#243c34);font-size:16px;line-height:1.65}
+:is(#modal,#dialog,#privacy) p{overflow-wrap:anywhere}
+:is(#modal,#dialog) :is(.modal-description,.dialog-body>p){font-size:14px;color:var(--rg-color-muted,#58695f);line-height:1.7;margin:0 0 24px}
+:is(#modal,#dialog,#privacy) :is(.button,.icon-button,.dialog-close,.close){min-height:44px;transition:background var(--rg-duration-fast,160ms),box-shadow var(--rg-duration-fast,160ms)}
+:is(#modal,#dialog,#privacy) .button{height:auto;padding:11px 17px;border:1px solid var(--rg-color-control-border,#78877a);border-radius:var(--rg-radius-control,8px);background:var(--rg-color-surface,#fff);color:var(--rg-color-ink,#243c34);font-size:14px;font-weight:500;line-height:1.4;white-space:normal;text-align:center;transform:none}
+:is(#modal,#dialog,#privacy) .button:hover{background:#edf2e7;transform:none}
+:is(#modal,#dialog,#privacy) .button-primary,#dialog .dialog-body button[type=submit]{background:var(--rg-color-forest,#153f35);border-color:var(--rg-color-forest,#153f35);color:#fff}
+:is(#modal,#dialog,#privacy) .button-primary:hover,#dialog .dialog-body button[type=submit]:hover{background:#245745}
+:is(#modal,#dialog,#privacy) .button:active{box-shadow:inset 0 0 0 2px #153f3530}
+:is(#modal,#dialog,#privacy) .button:disabled{background:#ecefe8;border-color:#ecefe8;color:#717b71;cursor:not-allowed;box-shadow:none}
+:is(#modal,#dialog,#privacy) :is(.icon-button,.dialog-close,.close){display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;width:44px;height:44px;min-width:44px;padding:10px;border:0;border-radius:8px;background:transparent;color:var(--rg-color-muted,#58695f)}
+:is(#modal,#dialog,#privacy) :is(.icon-button,.dialog-close,.close):hover{background:#edf2e7;color:var(--rg-color-ink,#243c34)}
+:is(#modal,#dialog,#privacy) :is(.icon-button,.dialog-close,.close) .icon{width:20px;height:20px}
+:is(#modal,#dialog,#privacy) :is(button,a,summary):focus-visible{outline:3px solid var(--rg-color-focus,#22755a);outline-offset:3px}
+#modal .modal-actions{position:sticky;bottom:0;z-index:1;display:flex;justify-content:flex-end;flex-wrap:wrap;gap:12px;padding:20px 28px;margin:24px -28px -24px;background:#f5f7f1;border-top:1px solid var(--rg-color-line,#e0e6dc)}
+#modal .form-field{min-width:0;gap:8px;margin-bottom:20px}
+#modal :is(.form-field label,fieldset legend),#dialog :is(label,.dialog-body label){display:block;font-size:14px;font-weight:500;line-height:1.5;color:var(--rg-color-ink,#243c34)}
+#modal :is(.form-field input,.form-field select,.form-field textarea,.search-input),#dialog .dialog-body :is(input:not([type=checkbox]):not([type=radio]),select,textarea){width:100%;min-width:0;min-height:44px;padding:11px 13px;border:1px solid var(--rg-color-control-border,#78877a);border-radius:var(--rg-radius-control,8px);background:var(--rg-color-surface,#fff);color:var(--rg-color-ink,#243c34);font-size:16px;line-height:1.4;outline:none;box-sizing:border-box}
+#modal :is(input,textarea)::placeholder,#dialog :is(input,textarea)::placeholder{color:var(--rg-color-muted,#58695f);opacity:1}
+#modal :is(input,select,textarea):focus,#dialog :is(input,select,textarea):focus{border-color:var(--rg-color-focus,#22755a);box-shadow:0 0 0 3px #22755a26}
+:is(#modal,#dialog) :is(input,select,textarea)[aria-invalid=true]{border-color:var(--rg-color-danger,#a73438)}
+:is(#modal,#dialog) :is(input,select,textarea):disabled{background:#ecefe8;color:#717b71;cursor:not-allowed}
+#modal textarea,#dialog textarea{min-height:110px;resize:vertical}
+:is(#modal,#dialog) :is(input[type=checkbox],input[type=radio]){accent-color:var(--rg-color-green,#22755a);width:18px;height:18px;flex-shrink:0}
+#modal input[type=file]{max-width:100%;min-height:44px;height:auto;padding:10px;font-size:14px}
+#modal input[type=file]::file-selector-button{font:inherit;color:var(--rg-color-ink,#243c34);background:white;border:1px solid var(--rg-color-control-border,#78877a);border-radius:6px;padding:8px 10px;margin-right:10px;cursor:pointer}
+#modal :is(.demo-note,.register-field-help){font-size:12px;line-height:1.7;color:var(--rg-color-muted,#58695f)}
+#modal .demo-note{background:#edf2e8;padding:16px;border-left:3px solid var(--rg-color-green,#22755a);border-radius:0 8px 8px 0}
+#modal .text-link{font-size:14px;color:var(--rg-color-green,#22755a);min-height:36px;line-height:1.6}
+#modal .text-link.danger-text{color:var(--rg-color-danger,#a73438)}
+#modal :is(.add-company-status,.ownership-form-status,.register-form-status){font-size:14px;line-height:1.6;color:var(--rg-color-warning,#785315)}
+#modal .modal-option{min-height:64px;padding:16px;background:white;border-color:var(--rg-color-line,#e0e6dc);color:var(--rg-color-ink,#243c34);gap:14px}
+#modal .modal-option:hover{background:#f3f6ed}
+#modal .modal-option strong{font-size:14px;line-height:1.5;color:var(--rg-color-ink,#243c34)}
+#modal .modal-option small{font-size:12px;line-height:1.6;color:var(--rg-color-muted,#58695f)}
+#modal :is(.modal-option>.icon,.search-results .icon){color:var(--rg-color-green,#22755a)}
+#modal .search-results a{font-size:14px;min-height:44px;color:var(--rg-color-ink,#243c34)}
+#modal .general-edit-tabs{display:flex;gap:4px;padding:5px;background:#f3f6ed;border-color:var(--rg-color-line,#e0e6dc)}
+#modal .general-edit-tabs>button{flex:1;min-height:44px;font-size:14px;line-height:1.5;padding:10px;gap:7px;color:var(--rg-color-muted,#58695f)}
+#modal .general-edit-tabs>button[aria-selected=true]{background:white;color:var(--rg-color-forest,#153f35);border-color:var(--rg-color-line,#e0e6dc);padding:9px;box-shadow:0 2px 7px #153f3508}
+#modal .general-edit-tabs>button>.icon{width:16px;height:16px}
+#modal .general-auto-intro{background:#f4f7ef;border-color:var(--rg-color-line,#e0e6dc)}
+#modal :is(.general-auto-intro h3,.invoice-empty h3){color:var(--rg-color-ink,#243c34);font-size:24px}
+#modal :is(.general-auto-intro p,.invoice-empty p,.general-sync-empty p,.capital-help-items p){font-size:14px;line-height:1.7;color:var(--rg-color-muted,#58695f)}
+#modal :is(.general-auto-note,.general-auto-siren,.general-auto-siren strong,.general-sync-heading>span,.general-sync-row label small,.general-sync-row p>span,.general-sync-row .sync-before,.general-sync-row .sync-after>span){font-size:12px;line-height:1.7;color:var(--rg-color-muted,#58695f)}
+#modal :is(.general-auto-siren small,.general-sync-row.has-change label small){font-size:12px;color:var(--rg-color-warning,#785315);background:var(--rg-color-warning-bg,#fff4d9)}
+#modal :is(.general-sync-heading strong,.general-sync-row label,.general-sync-empty strong,.capital-help-items strong){font-size:14px;line-height:1.6;color:var(--rg-color-ink,#243c34)}
+#modal .general-sync-row p{font-size:14px;line-height:1.6;color:var(--rg-color-muted,#58695f)}
+#modal :is(.general-sync-row .sync-after,.general-sync-check){color:var(--rg-color-success,#206044)}
+#modal .general-sync-row label{flex-wrap:wrap;gap:6px 12px}
+#modal :is(.general-auto-intro>span,.invoice-empty>.icon,.general-sync-empty>.icon){color:var(--rg-color-green,#22755a)}
+#modal .general-manual-status{font-size:14px;line-height:1.7;color:var(--rg-color-success,#206044);background:var(--rg-color-success-bg,#eaf4ec);border-color:#c5d9c6}
+#modal .general-field-updated{border-color:var(--rg-color-success,#206044)!important;background:var(--rg-color-success-bg,#eaf4ec)!important}
+#modal .general-sync-apply{padding:11px 15px}
+#modal .pv-composition>strong{font-size:14px;color:var(--rg-color-ink,#243c34)}
+#modal .pv-composition>label{font-size:14px;line-height:1.6;color:var(--rg-color-ink,#243c34);gap:10px}
+#modal .pv-composition input{width:18px;height:18px}
+#modal .operation-family-list{max-height:none}
+#modal .operation-family-list summary{font-size:14px;min-height:44px;color:var(--rg-color-ink,#243c34)}
+#modal .operation-family-list details button{font-size:14px;min-height:44px;color:var(--rg-color-ink,#243c34)}
+#modal :is(.register-modal-section .button,.pv-details-actions>.button,.register-modal-full){font-size:14px;min-height:44px}
+#modal :is(.register-file-row,.register-file-row .text-link){font-size:14px;line-height:1.6}
+#modal .register-file-row{flex-wrap:wrap;overflow-wrap:anywhere}
+#privacy{padding:28px}
+#privacy h2{padding-right:44px;margin:0 0 20px}
+#privacy p{font-size:14px;line-height:1.7;color:var(--rg-color-muted,#58695f);margin-bottom:20px}
+#privacy .close{top:16px;right:16px}
+#dialog .dialog-body form>label{margin:16px 0 8px}
+#dialog .dialog-body form>label:first-child{margin-top:0}
+@media(max-width:540px){
+  :is(#modal,#dialog) :is(.modal-header,.dialog-head){padding:20px;gap:12px}
+  :is(#modal,#dialog) :is(#modal-body,.dialog-body){padding:20px}
+  :is(#modal,#dialog,#privacy) h2{font-size:22px}
+  #modal .form-row{grid-template-columns:1fr;gap:0}
+  #modal .modal-actions{bottom:0;padding:20px;margin:24px -20px -20px}
+  #modal .modal-actions>.button{flex:1}
+  #modal .general-edit-tabs{flex-direction:column}
+  #modal .general-edit-tabs>button{justify-content:flex-start;padding:10px 12px}
+  #modal .general-edit-tabs>button[aria-selected=true]{padding:9px 11px}
+  #privacy{padding:20px}
+}
+@media(prefers-reduced-motion:reduce){:is(#modal,#dialog,#privacy) *{transition:none!important;animation:none!important}}

@@ -27,7 +27,7 @@ La forme juridique et le capital sont repris de la capture initiale à des fins 
 - `landing.html` : accueil public, présentation de la solution, parcours par profil, fonctionnement, accès à la page Offres, FAQ et prise de contact simulée.
 - `connexion.html` : connexion, inscription (`#inscription`) et récupération du mot de passe (`#mot-de-passe-oublie`). Les formulaires ne font aucun appel réseau et ne créent aucun compte.
 
-Les deux pages embarquent leur CSS, leur JavaScript et leurs icônes SVG. Elles ne chargent ni police, image, bibliothèque ni service externe. Les placer dans le même dossier pour conserver leurs liens. Le lien de démonstration depuis la connexion ouvre le dashboard personnel `dashboard.html`. Chaque société donne ensuite accès à sa fiche dans `index.html`.
+Les deux pages embarquent leur JavaScript et leurs icônes SVG. Le style principal reste embarqué ; les modales partagent maintenant `design-tokens.css` et `modals.css` avec l’application. Aucune police, bibliothèque ni service externe n’est chargé. Garder ces fichiers dans le même dossier pour conserver les liens et le thème des modales. Le lien de démonstration depuis la connexion ouvre le dashboard personnel `dashboard.html`. Chaque société donne ensuite accès à sa fiche dans `index.html`.
 
 Cette proposition prolonge l’interface société approuvée. La lecture du site public `registregeneral.com` a été bloquée par le proxy réseau (HTTP 403) pendant la réalisation : l’architecture proposée reste à confronter à l’arborescence actuelle. Les deux domaines `registregeneral.com` et `www.registregeneral.com` ont été ajoutés au brouillon des paramètres réseau, sans activation du réseau courant. Aucun tarif, témoignage, chiffre de clientèle ou engagement juridique non vérifié n’est présenté comme une information officielle.
 
@@ -76,7 +76,7 @@ L’offre historique « Carnet » et son plafond de 5 certifications sont repris
 
 `associes.html` ouvre directement l’aperçu de l’actionnariat de la société sélectionnée. L’onglet Associés dans `societe.html` ouvre la même vue ; `#associes/<identifiant>` affiche une fiche individuelle.
 
-Les données initiales de THIRTY reprennent la nouvelle capture : Amélien Delahaie, compte n° 1, 249 titres (24,90 %) ; Steve Rodgers, compte n° 2, 751 titres (75,10 %) ; 1 000 actions ordinaires de 1 € de valeur nominale. Ces données remplacent la répartition illustrative antérieure sur les écrans et les exports.
+Les captures d’origine décrivaient Amélien Delahaie (249 titres) et Steve Rodgers (751 titres), pour 1 000 actions ordinaires de 1 €. Le jeu de volume actuel remplace la détention de démonstration par 20 comptes de 50 titres chacun (5 %). L’historique fourni des deux premiers comptes reste consultable ; l’écart avec le nouveau solde fictif est explicitement signalé sans inventer d’opération.
 
 Fonctions disponibles dans la maquette : recherche par nom ou compte, tri du tableau, export CSV de la liste complète et de la table de capitalisation, consultation et modification des fiches, ajout d’un associé, modification du nombre total de titres et de la valeur nominale, recherche et détail du type de titres. Les exports complets ne dépendent pas du filtre affiché. Le capital et les parts sont calculés à partir des mêmes données, conservées par société dans `rg-demo-companies` (champ `ownership`).
 
@@ -93,7 +93,7 @@ Le bloc abonnement utilise une carte avec bandeau vert forêt, informations de c
 
 La modale « Informations générales » propose « Saisie manuelle » et « Mise à jour automatique ». Cette dernière est une simulation locale : elle compare cinq champs publics à la fiche d’exemple THIRTY, permet de choisir les différences à préremplir, puis revient à la saisie pour relecture et enregistrement explicite. Elle préserve les champs non sélectionnés, les modifications manuelles et la clôture de l’exercice. Aucun appel INPI n’est effectué. Un autre SIREN sans fiche de démonstration conserve l’accès à la saisie manuelle.
 
-Les trois modifications d’intitulés annulées par l’utilisateur n’ont pas été retenues : « VOTRE ESPACE JURIDIQUE », « Ma société » et « Toutes les informations de votre société, au même endroit. » sont conservés sur la vue société.
+La vue société conserve « VOTRE ESPACE JURIDIQUE », affiche désormais la dénomination de la société en titre et ne présente plus la description générique. La barre supérieure de l’application a été retirée ; les accès personnels restent dans la navigation latérale et un bouton ouvre le menu sur mobile.
 
 
 ### Fiche individuelle et compte d’associé papier
@@ -126,3 +126,45 @@ Les fichiers PDF (10 Mo maximum par fichier, extension et en-tête PDF vérifié
 Les anciennes certifications et les mentions d’horodatage/signature proviennent des extraits fournis. Leurs fichiers originaux n’étant pas joints, l’interface ne génère pas de faux PDF historiques. « Préparer la certification » crée une **simulation** locale, clairement identifiée, qui fige les données du registre sans consommer de certification. Le projet et le spécimen sont exportés en HTML ; le dossier ZIP d’une simulation contient ce spécimen et les PDF locaux disponibles, sans concaténer ou modifier ces PDF. Aucun horodatage, certificat, signature, e-mail ou formalité réelle n’est produit.
 
 Validation : parcours Chromium des trois pages, recherche/filtres/CSV, projets et rectifications, cohérence avec les comptes papier, fichiers PDF persistés et restitués à l’identique, brouillon de signature, intégrité du ZIP, personnel/annexes, isolation entre sociétés et affichage à 1440, 1024, 768, 390 et 320 px. Aucun service externe n’est nécessaire.
+
+
+## Charte graphique et design system — v1.0
+
+Le guide d’intégration est disponible dans `DESIGN-SYSTEM.md`. Le fichier `registre-general-kit-design-v1.zip` réunit les guides, les ressources et la maquette pour conserver tous les liens d’exemple.
+
+- `charte-graphique.html` : identité visuelle, principes, règles du logo, palette, typographie, composition, iconographie, ton et contrastes de référence.
+- `charte-graphique.pdf` : version imprimable et partageable de la charte.
+- `design-system.html` : catalogue interactif de boutons, formulaires, navigation, tableaux, statuts, cartes, abonnement, modales, notifications et compte papier.
+- `design-tokens.json` : valeurs typées (couleurs, familles typographiques, espacements, rayons, dimensions, durées et seuils responsive).
+- `design-tokens.css` : variables préfixées `--rg-`, synchronisées avec le JSON.
+- `design-system.css` : styles du catalogue et classes réutilisables `.rg-*`.
+- `design-system.js` : interactions de démonstration du catalogue uniquement, sans appel réseau et sans accès aux données métier.
+- `brand-assets/` : logo principal, inversé, monochrome et symbole en SVG. Le texte du logo reste éditable et dépend de Segoe UI / Arial ; vectoriser la version typographique retenue avant impression définitive.
+
+La bibliothèque formalise l’UI approuvée et améliore les valeurs de référence des futurs composants : texte courant de 16 px, libellés/tableaux de 14 px, métadonnées de 12 px, contrôles standard de 44 px et couleurs de texte offrant les contrastes documentés. Le sauge reste décoratif. Les statuts de certification, d’import et de simulation sont distingués par des mots et des couleurs.
+
+Les pages existantes conservent leurs styles et comportements hors des modales. Celles-ci adoptent la référence via `modals.css`, une adaptation ciblée sans charger le catalogue. `design-system.css` définit une base globale de mise en page et de typographie : son adoption dans un écran historique demande une revue CSS. Charger les tokens seuls ne remplace pas les anciens styles. Aucune police ou bibliothèque externe n’est téléchargée. Les interfaces de démonstration du catalogue ne stockent aucune saisie et ne réalisent aucune opération juridique.
+
+Pour consulter : servir le dossier avec la commande locale ci-dessus puis ouvrir `/charte-graphique.html` ou `/design-system.html`. Garder les fichiers CSS/JS et `brand-assets/` à côté des HTML. Les exports du compte d’associé et le PDF de la charte restent autonomes.
+
+
+### Adoption du design system dans les modales
+
+Les huit entrées authentifiées et les cinq pages publiques chargent `design-tokens.css` puis `modals.css` après leurs styles existants. Cette feuille est limitée aux dialogues `#modal`, `#dialog` et `#privacy` : surface blanche explicite et `color-scheme: light`, texte Encre/Secondaire, voile vert transparent, coins de 18 px, contrôles et boutons de 44 px, champs blancs, focus et bordures visibles. Les formulaires longs défilent dans la modale ; l’en-tête reste visible et les actions des formulaires authentifiés restent accessibles en bas. Les dialogues sont reliés à leur titre accessible.
+
+L’ajout de société, l’édition manuelle et la simulation de mise à jour automatique utilisent cette présentation. Elle s’applique aussi aux associés, aux registres, aux formalités et aux dialogues publics. Aucun contrôleur métier n’a été remplacé par le JavaScript de démonstration du design system.
+
+Vérification : fond blanc sous thème sombre forcé à la racine, huit entrées authentifiées, cinq entrées publiques, ajout de société et enregistrement des informations, comparaison/préremplissage simulé, fermeture Annuler/Échap, largeur de 320 à 1 440 px et parcours des trois registres.
+
+
+## Jeu de volume et sous-navigation des associés
+
+`demo-fixtures.js` ajoute dix sociétés fictives à THIRTY (onze sociétés au total dans un espace neuf), avec des noms, coordonnées et identifiants de test clairement signalés. Les autres sociétés déjà saisies sont conservées. THIRTY comporte vingt associés de démonstration, chacun avec cinquante des mille titres, soit 5 %. Les deux noms fournis sont conservés et dix-huit noms fictifs complètent les vingt comptes.
+
+Cette migration s’exécute une seule fois par navigateur (`rg-demo-volume-v1`). Le précédent actionnariat de THIRTY est conservé dans `rg-demo-before-volume-v1`. Les modifications effectuées après la migration ne sont pas réinitialisées au rechargement. Les historiques des registres fournis sont préservés ; les nouveaux comptes n’ont pas d’opérations inventées.
+
+`subnav.css` et `subnav.js` constituent le composant partagé avec `design-system.html#sous-navigation` : vue d’ensemble toujours disponible, liens défilants, flèches désactivées aux extrémités, sélecteur d’accès direct, sélection visible après navigation/redimensionnement et navigation clavier (gauche/droite/Début/Fin). Il conserve des liens avec `aria-current`, plutôt que de simuler des onglets de panneaux. La répartition du capital dispose d’un défilement interne pour éviter une carte démesurée.
+
+La barre supérieure de l’application est retirée. Les sociétés utilisent leur nom comme titre au lieu de « Ma société » ; la description générique et le bouton supérieur « Nouvelle procédure » ne sont plus affichés. L’ajout d’associé et l’ajout de société restent disponibles. Les formalités restent accessibles par leur menu. Le bouton mobile ouvre/ferme la navigation latérale avec un état `aria-expanded` synchronisé.
+
+Validation : migration d’un espace existant et conservation d’une société étrangère au jeu, absence de doublons au rechargement, onze cartes, vingt comptes égaux et total de 1 000 titres, filtres, sélection directe et liens profonds, focus clavier, fiche active visible après redimensionnement, catalogue partagé et absence de débordement de 320 à 1 440 px.

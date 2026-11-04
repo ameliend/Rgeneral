@@ -1,0 +1,318 @@
+{
+  "name": "Registre Général",
+  "version": "1.0.0",
+  "description": "Référence de l’identité validée. Variables préfixées rg ; adoption progressive dans les pages historiques.",
+  "color": {
+    "forest": {
+      "$type": "color",
+      "$value": "#153F35"
+    },
+    "forest-deep": {
+      "$type": "color",
+      "$value": "#11382F"
+    },
+    "green": {
+      "$type": "color",
+      "$value": "#22755A"
+    },
+    "mint": {
+      "$type": "color",
+      "$value": "#DCEDB8"
+    },
+    "sage": {
+      "$type": "color",
+      "$value": "#88A47B"
+    },
+    "canvas": {
+      "$type": "color",
+      "$value": "#F6F7F3"
+    },
+    "paper": {
+      "$type": "color",
+      "$value": "#F8F9F5"
+    },
+    "surface": {
+      "$type": "color",
+      "$value": "#FFFFFF"
+    },
+    "ink": {
+      "$type": "color",
+      "$value": "#243C34"
+    },
+    "muted": {
+      "$type": "color",
+      "$value": "#58695F"
+    },
+    "line": {
+      "$type": "color",
+      "$value": "#E0E6DC"
+    },
+    "control-border": {
+      "$type": "color",
+      "$value": "#78877A"
+    },
+    "success": {
+      "$type": "color",
+      "$value": "#206044"
+    },
+    "success-bg": {
+      "$type": "color",
+      "$value": "#EAF4EC"
+    },
+    "warning": {
+      "$type": "color",
+      "$value": "#785315"
+    },
+    "warning-bg": {
+      "$type": "color",
+      "$value": "#FFF4D9"
+    },
+    "danger": {
+      "$type": "color",
+      "$value": "#A73438"
+    },
+    "danger-bg": {
+      "$type": "color",
+      "$value": "#FCEEF0"
+    },
+    "info": {
+      "$type": "color",
+      "$value": "#305F80"
+    },
+    "info-bg": {
+      "$type": "color",
+      "$value": "#ECF3F9"
+    },
+    "focus": {
+      "$type": "color",
+      "$value": "#22755A"
+    }
+  },
+  "font": {
+    "sans": {
+      "$type": "fontFamily",
+      "$value": [
+        "Inter",
+        "Segoe UI",
+        "Arial",
+        "sans-serif"
+      ]
+    },
+    "document": {
+      "$type": "fontFamily",
+      "$value": [
+        "Georgia",
+        "Times New Roman",
+        "serif"
+      ]
+    }
+  },
+  "space": {
+    "0": {
+      "$type": "dimension",
+      "$value": {
+        "value": 0,
+        "unit": "px"
+      }
+    },
+    "4": {
+      "$type": "dimension",
+      "$value": {
+        "value": 4,
+        "unit": "px"
+      }
+    },
+    "8": {
+      "$type": "dimension",
+      "$value": {
+        "value": 8,
+        "unit": "px"
+      }
+    },
+    "12": {
+      "$type": "dimension",
+      "$value": {
+        "value": 12,
+        "unit": "px"
+      }
+    },
+    "16": {
+      "$type": "dimension",
+      "$value": {
+        "value": 16,
+        "unit": "px"
+      }
+    },
+    "24": {
+      "$type": "dimension",
+      "$value": {
+        "value": 24,
+        "unit": "px"
+      }
+    },
+    "32": {
+      "$type": "dimension",
+      "$value": {
+        "value": 32,
+        "unit": "px"
+      }
+    },
+    "48": {
+      "$type": "dimension",
+      "$value": {
+        "value": 48,
+        "unit": "px"
+      }
+    },
+    "64": {
+      "$type": "dimension",
+      "$value": {
+        "value": 64,
+        "unit": "px"
+      }
+    },
+    "96": {
+      "$type": "dimension",
+      "$value": {
+        "value": 96,
+        "unit": "px"
+      }
+    }
+  },
+  "radius": {
+    "sm": {
+      "$type": "dimension",
+      "$value": {
+        "value": 6,
+        "unit": "px"
+      }
+    },
+    "control": {
+      "$type": "dimension",
+      "$value": {
+        "value": 8,
+        "unit": "px"
+      }
+    },
+    "card": {
+      "$type": "dimension",
+      "$value": {
+        "value": 14,
+        "unit": "px"
+      }
+    },
+    "large": {
+      "$type": "dimension",
+      "$value": {
+        "value": 24,
+        "unit": "px"
+      }
+    }
+  },
+  "type": {
+    "caption": {
+      "$type": "dimension",
+      "$value": {
+        "value": 12,
+        "unit": "px"
+      }
+    },
+    "small": {
+      "$type": "dimension",
+      "$value": {
+        "value": 14,
+        "unit": "px"
+      }
+    },
+    "body": {
+      "$type": "dimension",
+      "$value": {
+        "value": 16,
+        "unit": "px"
+      }
+    },
+    "subheading": {
+      "$type": "dimension",
+      "$value": {
+        "value": 20,
+        "unit": "px"
+      }
+    },
+    "section": {
+      "$type": "dimension",
+      "$value": {
+        "value": 28,
+        "unit": "px"
+      }
+    },
+    "page": {
+      "$type": "dimension",
+      "$value": {
+        "value": 36,
+        "unit": "px"
+      }
+    },
+    "display": {
+      "$type": "dimension",
+      "$value": {
+        "value": 64,
+        "unit": "px"
+      }
+    }
+  },
+  "size": {
+    "control": {
+      "$type": "dimension",
+      "$value": {
+        "value": 44,
+        "unit": "px"
+      }
+    },
+    "sidebar": {
+      "$type": "dimension",
+      "$value": {
+        "value": 252,
+        "unit": "px"
+      }
+    },
+    "content": {
+      "$type": "dimension",
+      "$value": {
+        "value": 1200,
+        "unit": "px"
+      }
+    }
+  },
+  "duration": {
+    "fast": {
+      "$type": "duration",
+      "$value": {
+        "value": 160,
+        "unit": "ms"
+      }
+    },
+    "normal": {
+      "$type": "duration",
+      "$value": {
+        "value": 220,
+        "unit": "ms"
+      }
+    }
+  },
+  "breakpoint": {
+    "mobile": {
+      "$type": "dimension",
+      "$value": {
+        "value": 640,
+        "unit": "px"
+      }
+    },
+    "tablet": {
+      "$type": "dimension",
+      "$value": {
+        "value": 1024,
+        "unit": "px"
+      }
+    }
+  }
+}
