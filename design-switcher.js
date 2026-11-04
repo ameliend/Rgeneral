@@ -2,7 +2,7 @@
 (() => {
   const page=location.pathname.split('/').pop()||'index.html';
   const docs=['design-system.html','charte-graphique.html'];
-  const sitePages=['index.html','landing.html','connexion.html','offres.html','annonce.html','depot.html','dashboard.html','societe.html','associes.html','associe.html','registre-titres.html','registre-decisions.html','registre-personnel.html','administration.html','operation.html'];
+  const sitePages=['index.html','landing.html','connexion.html','offres.html','annonce.html','depot.html','dashboard.html','societe.html','associes.html','associe.html','registre-titres.html','registre-decisions.html','registre-personnel.html','administration.html','operation.html','organisation.html'];
   const key='rg-review-return-page';
   function remember(){if(sitePages.includes(page))try{sessionStorage.setItem(key,page+location.search+location.hash);}catch{}}
   remember();window.addEventListener('hashchange',remember);

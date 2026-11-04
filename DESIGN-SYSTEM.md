@@ -97,3 +97,13 @@ Le composant `capital-setup.js` / `capital-setup.css` utilise une modale blanche
 L’enregistrement est réservé à la dernière étape ; les contrôles sont refaits sur toute la situation. Les observations et les informations facultatives se retrouvent au récapitulatif. Bons et titres composant le capital sont distingués. Les historiques n’acquièrent pas de nouveaux mouvements du seul fait d’une déclaration.
 
 Le menu commun `design-switcher.js` / `design-switcher.css` est une navigation de revue, fixée en bas à droite avec liens réels, indication de la page courante, focus visible, fermeture Échap et marge dédiée en bas de page. Il relie le site, le design system et la charte graphique, sans contrôle de téléchargement. Les sources restent disponibles dans le dépôt. Le menu disparaît à l’impression et ne recouvre pas les modales natives.
+
+## Organisation des cabinets
+
+`organisation.html` applique les mêmes surfaces, contrôles et modales blanches. La sidebar ajoute deux sélecteurs hiérarchiques : groupe puis cabinet (sous-groupe). Changer de groupe remet le cabinet à « Tous les cabinets » et efface filtres/sélections du précédent périmètre. Le contexte reste visible dans le contenu.
+
+Le portefeuille sépare cabinet principal, licence et responsables. Le badge de licence appartient à la société ; le partage est un état distinct du rattachement. Les tableaux restent paginés et leur largeur est contenue dans une zone de défilement. Sur mobile, le cabinet et la licence sont également rappelés dans la cellule d’identité de la société.
+
+Les rôles utilisent une grille Aucun accès / Lecture seule / Lecture et écriture. Les rôles d’administration de structure restent distincts des permissions juridiques. L’inspecteur affiche les trois termes du calcul des droits, avec leurs sources textuelles. Une attribution indique toujours son niveau (groupe, cabinet ou société) et le nom du périmètre.
+
+Les changements de rattachement et de licence passent par un récapitulatif nominatif. La liste collective reste visible même si la sélection a été faite sur plusieurs pages. Une erreur de sauvegarde conserve ce récapitulatif pour réessayer. Une licence de démonstration n’affiche ni contrat souscrit ni consommation supposée.

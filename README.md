@@ -258,3 +258,37 @@ Le modèle `ownership.categories` conserve les catégories ; chaque compte porte
 Les boutons de téléchargement des guides, du kit et des ressources ont été retirés du design system et de la charte, ainsi que la commande d’impression de la charte. Les sources restent dans le dépôt ; le menu de revue sert à consulter les pages. La navigation latérale d’une société conserve uniquement Ma société sous le sélecteur : formalités et documents restent dans la navigation de contenu.
 
 Validation complémentaire : parcours complet avec trois natures d’associé, préférence avec vote et dividende prioritaire, bons hors capital, conservation des données au rechargement, PDF invalide refusé et copie valide restituable, 20 associés paginés, échec de sauvegarde réessayable, validation globale après saut entre étapes, annulation, historique intact, cession par catégorie, 17 pages sans erreur JavaScript, menu clavier et rendu mobile.
+
+## Groupes, cabinets, portefeuilles et licences
+
+La branche `feature/groupes-cabinets-portefeuilles` ajoute `organisation.html`, accessible dans la sidebar et depuis l’administration d’une société. Chaque cabinet représente un sous-groupe d’un groupe ; la société garde un rattachement principal et sa propre licence.
+
+`organizations.js` / `organizations.css` fournissent cinq vues :
+
+- **Portefeuille** : recherche, filtres de licence et responsable, pagination à dix sociétés, rattachement, licence, payeur et responsables. La sélection multiple est conservée entre pages/recherches et effacée au changement de périmètre. Une modification de licence individuelle ou collective passe par un récapitulatif avant enregistrement.
+- **Cabinets** : création et modification d’un sous-groupe, administrateurs propres au cabinet et accès à son portefeuille. Un nouveau groupe est créé avec son premier cabinet et des attributions distinctes d’administration et de gestion juridique pour le compte de démonstration.
+- **Équipes et périmètres** : rôles attribués au groupe, au cabinet ou à une société précise. Une personne peut cumuler des attributions différentes. Le tableau suit le périmètre du cabinet choisi, en conservant les attributions de groupe qui le couvrent. Les propriétaires initiaux des groupes sont protégés ; retirer une autre attribution conserve toutes les autres.
+- **Rôles et accès** : administration de groupe, administration de cabinet, consultation juridique, gestion juridique et rôles personnalisés. Un rôle personnalisé appartient à son groupe, avec trois niveaux par fonctionnalité. Les rôles de référence sont protégés. L’inspecteur vérifie une personne, une société et une fonctionnalité, puis présente permission du rôle ∩ plafond de la licence = accès effectif.
+- **Licences et facturation** : répartition des licences et des payeurs (groupe/cabinet/société), tarifs annuels connus et nombre de certifications prévu par offre. Il n’y a ni facture, paiement, souscription ni solde consommé fictivement présenté comme réel. Les tarifs non fournis restent à confirmer ; le total n’est pas un devis et le traitement fiscal reste à confirmer.
+
+Le contexte groupe/cabinet est mémorisé dans le navigateur et filtre le dashboard, ses notifications, le sélecteur de sociétés et le portefeuille. Le sélecteur de sociétés recherche dans le périmètre et affiche huit résultats par page. Un lien direct vers une société aligne le contexte sur son cabinet principal si elle n’est pas déjà visible dans le périmètre courant. Les anciennes données des sociétés et les registres restent conservés.
+
+Un dossier peut être partagé avec un autre cabinet **du même groupe**, sans créer de nouvelle société ni modifier son payeur ou sa licence. Le partage plafonne les permissions des rôles juridiques du cabinet destinataire à lecture ou lecture/écriture ; il ne crée pas de droit juridique pour ses administrateurs. Un transfert de cabinet principal dans le même groupe conserve les comptes et l’historique. Les droits spécifiques à la société restent attribués ; les droits provenant de l’ancien cabinet ne se déplacent pas automatiquement. La responsabilité du suivi d’un dossier ne constitue pas une autorisation d’accès.
+
+### Modèle et portée de la démonstration
+
+L’organisation est enregistrée dans une entrée locale distincte, `rg-demo-organizations-v1` : groupes, cabinets, personnes, rôles, attributions (`scope`, `scopeId`), rattachements/licences/payeurs/responsables, partages et contexte. Les données juridiques restent dans le modèle existant des sociétés. Une modification d’organisation est écrite en une fois et rétablie en mémoire en cas d’échec du stockage. L’ajout d’une société rétablit la collection précédente si l’enregistrement de son rattachement échoue.
+
+Deux groupes et quatre cabinets fictifs répartissent les onze sociétés de démonstration, avec plusieurs licences dans un même portefeuille. Les sociétés utilisateur déjà présentes ne reçoivent pas de licence payante supposée ; elles sont rattachées au cabinet initial avec « À attribuer ». THIRTY conserve une licence Carnet historique dont le tarif reste à confirmer. Les plafonds de licence sont une politique d’interface de démonstration : Conservation limite aux données en lecture, Accès/Carnet limitent l’édition des documents sociaux et la création de registres sur mesure, Premium/Illimité les autorisent selon le rôle. Les formalités restent des services distincts, soumis à leurs permissions. Une société sans licence peut compléter ses informations générales mais doit recevoir une licence pour ses registres.
+
+Les rôles juridiques de l’organisation sont des attributions nominatives, distinctes des qualités et comptes d’associés et de l’ancien carnet de personnes de chaque société. Le rapprochement de ces identités avec des comptes authentifiés doit être réalisé côté serveur. L’inspecteur ne connecte pas la personne sélectionnée : il calcule ses permissions dans le modèle. La maquette continue d’être utilisée par le profil propriétaire de démonstration. Les vues de société indiquent les espaces indisponibles ou en lecture seule ; les contrôles de modification correspondants sont désactivés.
+
+**Cette branche reste une maquette HTML locale.** Le navigateur contient les jeux de données et ne fournit aucune isolation de sécurité réelle. Une application de production doit authentifier les membres, isoler les données par groupe et vérifier à chaque requête le périmètre, les permissions et les droits contractuels. Aucun e-mail n’est envoyé par l’ajout d’une attribution.
+
+Vérifications : création groupe/cabinet/société, transfert avec récapitulatif, conservation des registres, partage sans duplication et plafond de lecture, rôles différents selon les cabinets, rôle personnalisé limité à son groupe, licence individuelle/collective, échec de sauvegarde réessayable, sélection sur plusieurs pages, 44 sociétés de volume, filtrage du dashboard/sélecteur/notifications, lien direct, rechargement, 18 entrées HTML, cinq sous-pages de 320 à 1 440 px et non-régression des parcours capital/opérations.
+
+Tests du modèle sans dépendance :
+
+```sh
+node tests/organizations-model.test.cjs
+```
